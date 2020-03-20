@@ -200,6 +200,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void _onSignInButtonClicked() async {
     if (bloc.isValidInfo(_usernameController.text, _passwordController.text)) {
       ApiRequest.doLogin(_usernameController.text, _passwordController.text);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
     }
   }
 }

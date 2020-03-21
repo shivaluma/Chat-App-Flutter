@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chat_app/repository/api_request.dart';
 import 'package:chat_app/validators/validation.dart';
 
 class LoginBloc {
@@ -21,6 +22,11 @@ class LoginBloc {
     }
     _passwordController.sink.add('OK');
     return true;
+  }
+
+  void doLogin(String username, String password, Function onSuccess,
+      Function onFailure) {
+    ApiRequest.doLogin(username, password, onSuccess, onFailure);
   }
 
   void dispose() {

@@ -1,5 +1,6 @@
 import 'package:chat_app/blocs/login_bloc.dart';
 import 'package:chat_app/repository/api_request.dart';
+import 'package:chat_app/resources/dialog/LoadingDialog.dart';
 import 'package:chat_app/screens/home_screen.dart';
 import 'package:chat_app/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +17,16 @@ class _LoginScreenState extends State<LoginScreen> {
   LoginBloc bloc = new LoginBloc();
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
-
+  bool _loginError = false;
   void _toggleObscure() {
     setState(() {
       _obscureText = !_obscureText;
+    });
+  }
+
+  void _toggleLoginError() {
+    setState(() {
+      _loginError = true;
     });
   }
 
@@ -145,6 +152,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    _loginError ? 'Wrong username or password' : "",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsets.only(bottom: 40.0),
                   child: SizedBox(
                     width: double.infinity,
@@ -199,11 +216,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _onSignInButtonClicked() async {
     if (bloc.isValidInfo(_usernameController.text, _passwordController.text)) {
-      ApiRequest.doLogin(_usernameController.text, _passwordController.text);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
+      LoadingDialog.showLoadingDialog(context, "Please wait...");
+      bloc.doLogin(_usernameController.text, _passwordController.text, () {
+        LoadingDialog.hideLoadingDialog(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      }, () {
+        _toggleLoginError();
+        LoadingDialog.hideLoadingDialog(context);
+        //onfailure
+      });
     }
   }
 }

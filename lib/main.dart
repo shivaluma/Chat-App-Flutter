@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xFF0078FF),
-        accentColor: Colors.white,
+        accentColor: Colors.black87,
       ),
       home: LoginScreen(),
     );

@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
         constraints: BoxConstraints.expand(),
         color: Colors.white,
         child: SingleChildScrollView(
+          reverse: true,
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Column(
@@ -205,7 +206,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).viewInsets.bottom,
+                // ),
               ],
             ),
           ),

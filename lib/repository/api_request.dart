@@ -31,4 +31,31 @@ class ApiRequest {
       return response;
     }
   }
+
+  static Future<String> doRegister(String username, String password,
+      String repassword, Function onSuccess, Function onFailure) async {
+    final http.Response response = await http.post(
+      baseUrl + '/register',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username,
+        'password': password,
+        'repassword': repassword
+      }),
+    );
+    var body = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      onSuccess();
+      print(response.body);
+      return "";
+    } else {
+      print(response.body);
+      onFailure();
+      print("FAIL");
+      return body['message'].toString();
+    }
+  }
 }

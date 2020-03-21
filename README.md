@@ -1,5 +1,4 @@
-# Chat App Flutter
-
+# Chat App Flutter (WIP)
 Implement a mobile version for my MERN Stack Chat App.
 You can get it from here ^^.
 https://github.com/shivaluma/Chat-App

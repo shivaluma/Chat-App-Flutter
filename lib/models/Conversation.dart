@@ -2,26 +2,36 @@ import 'package:chat_app/models/User.dart';
 import 'package:flutter/material.dart';
 
 class Conversation {
-  final User me;
-  final User other;
+  final String id;
+  final String firstId;
+  final String secondId;
+  final String firstUserName;
+  final String secondUserName;
   final String lastMessage;
   final String lastSender;
-  final String lastTime;
+  final String lastUpdate;
   Conversation(
-      {this.me, this.other, this.lastMessage, this.lastSender, this.lastTime});
+      {this.id,
+      this.firstId,
+      this.secondId,
+      this.firstUserName,
+      this.secondUserName,
+      this.lastMessage,
+      this.lastSender,
+      this.lastUpdate});
+  factory Conversation.fromJson(Map<String, dynamic> json) {
+    var datetime = DateTime.parse(json['lastUpdate']);
+    return Conversation(
+      id: json['_id'],
+      firstId: json['firstId'],
+      secondId: json['secondId'],
+      firstUserName: json['firstUserName'],
+      secondUserName: json['secondUserName'],
+      lastMessage: json['lastMessage'],
+      lastSender: json['lastSender'],
+      lastUpdate: datetime.hour.toString() + ":" + datetime.minute.toString(),
+    );
+  }
 }
 
-final cv1 = Conversation(
-    lastMessage: "Yeu thao",
-    me: shiro,
-    other: tamlol,
-    lastSender: "Tamgay",
-    lastTime: "11:39");
-final cv2 = Conversation(
-    lastMessage: "Thanh qua dep trai",
-    me: shiro,
-    other: tailong,
-    lastSender: "Mob",
-    lastTime: "11:40");
-
-List<Conversation> cvs = [cv1, cv2, cv2, cv2, cv2, cv2, cv2];
+List<Conversation> cvs = [];

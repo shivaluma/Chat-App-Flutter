@@ -12,6 +12,7 @@ https://github.com/shivaluma/Chat-App
 ![Login](./screenshots/3.png "Login")
 ![Register](./screenshots/2.png "Register")
 ![Chat](./screenshots/1.png "Chat")
+![Message](./screenshots/4.png "Message")
 
 ___
 Copyright by Nguyen Viet Thanh (Shivaluma)

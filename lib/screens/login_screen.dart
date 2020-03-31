@@ -24,10 +24,25 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _checkLogin();
+  }
+
   void _toggleLoginError() {
     setState(() {
       _loginError = true;
     });
+  }
+
+  void _checkLogin() async {
+    if (await ApiRequest.getToken() != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
   }
 
   @override

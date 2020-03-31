@@ -29,7 +29,10 @@ class Conversation {
       secondUserName: json['secondUserName'],
       lastMessage: json['lastMessage'],
       lastSender: json['lastSender'],
-      lastUpdate: datetime.hour.toString() + ":" + datetime.minute.toString(),
+      lastUpdate: ((datetime.hour + 7) % 24).toString() +
+          ":" +
+          (datetime.minute < 10 ? "0" : "") +
+          datetime.minute.toString(),
     );
   }
 }

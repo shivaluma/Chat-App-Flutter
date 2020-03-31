@@ -1,10 +1,22 @@
-import 'package:chat_app/models/User.dart';
-import 'package:flutter/material.dart';
-
 class Message {
-  final User sender;
+  final String id;
+  final String ofUser;
   final String content;
-  final TimeOfDay time;
+  final String time;
 
-  Message({this.sender, this.content, this.time});
+  Message({this.id, this.ofUser, this.content, this.time});
+
+  factory Message.fromJson(Map<String, dynamic> json) {
+    var datetime = DateTime.parse(json['time']);
+
+    return Message(
+      id: json['id'],
+      ofUser: json['ofUser'],
+      content: json['content'],
+      time: ((datetime.hour + 7) % 24).toString() +
+          ":" +
+          (datetime.minute < 10 ? "0" : "") +
+          datetime.minute.toString(),
+    );
+  }
 }
